@@ -1,0 +1,98 @@
+class _HomeState extends State<Home> {
+  GlobalKey<FormState> formController = GlobalKey<FormState>();
+
+  home() {
+    Navigator.of(context).pushReplacementNamed('/home');
+  }
+
+  cadastro() {
+    Navigator.of(context).pushReplacementNamed('/cadastro');
+  }
+
+  cadastroCidade() {
+    Navigator.of(context)
+        .pushReplacementNamed('/cadastroCidade', arguments: Cidade(0, '', ''));
+  }
+
+  consulta() {
+    Navigator.of(context).pushReplacementNamed('/consulta');
+  }
+
+  consultaCidade() {
+    Navigator.of(context).pushReplacementNamed('/consultaCidade',
+        arguments: Pessoa(0, '', 'M', 0, Cidade(0, '', '')));
+  }
+
+  voltaLogin() {
+    Navigator.of(context).pushReplacementNamed('/login');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey,
+      appBar: AppBar(
+        title: Componentes().criaTexto("Consumo de Api"),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.holiday_village),
+            onPressed: () {
+              home();
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.backspace_outlined),
+            onPressed: () {
+              voltaLogin();
+            },
+          ),
+        ],
+      ),
+      body: Form(
+          key: formController,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Image(
+                image: NetworkImage(
+                  'https://miro.medium.com/max/1000/1*dxbvVHJkUh5HagZ7HI0nFw.gif',
+                ),
+              ),
+              const SizedBox(
+                height: 70,
+                width: 70,
+              ),
+              const Text(
+                "Cadastros",
+                style: TextStyle(
+                    fontSize: 35.7,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline),
+              ),
+              Componentes()
+                  .criaBotao2(formController, cadastro, "Cadastro de Pessoa"),
+              Componentes().criaBotao2(
+                  formController, cadastroCidade, "Cadastro de Cidade"),
+              const SizedBox(
+                height: 50,
+                width: 50,
+              ),
+              const Text(
+                "Consultas e Filtors",
+                style: TextStyle(
+                    fontSize: 35.7,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline),
+              ),
+              Componentes()
+                  .criaBotao(formController, consulta, "Consulta de Pessoa"),
+              Componentes().criaBotao(
+                  formController, consultaCidade, "Consulta de Cidade"),
+            ],
+          )),
+    );
+  }
+}
